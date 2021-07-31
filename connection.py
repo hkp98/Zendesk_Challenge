@@ -11,7 +11,7 @@ class ZenApi:
         self.subdomain = "zccharsh"
         self.errorCode = None
     
-    def getTickets(self, fetch_ticket_id: int = None):
+    def getTickets(self, fetch_ticket_id: int = None): # this function calls the Api function or returns error if any
         tickets_data = None
         if fetch_ticket_id == None:
              tickets_data = self.requestZenApi(True)
@@ -30,7 +30,7 @@ class ZenApi:
              return tickets_data
         return  tickets_data
         
-    def requestZenApi(self,fetch_all_tickets: bool = True,fetch_ticket_id: int = None):
+    def requestZenApi(self,fetch_all_tickets: bool = True,fetch_ticket_id: int = None): #this function fetches the data from the Api
         if fetch_all_tickets:
             self.URL = "https://" + self.subdomain + ".zendesk.com/api/v2/tickets.json"
         else:
@@ -58,20 +58,19 @@ class ZenApi:
                 new = response.json()
                 self.data["tickets"].extend(new["tickets"])  
             
-            if fetch_all_tickets == True:
+            if fetch_all_tickets == True: # formatting the date-time field for tickets = all or individual ticket
                 for i in range(len(self.data["tickets"])):
                     create_date = str(datetime.datetime.strptime(self.data['tickets'][i]['created_at'], "%Y-%m-%dT%H:%M:%SZ"))
                     update_date = str(datetime.datetime.strptime(self.data['tickets'][i]['updated_at'], "%Y-%m-%dT%H:%M:%SZ"))
                     self.data["tickets"][i]["created_at"] = str(create_date)
                     self.data["tickets"][i]["updated_at"] = str(update_date)
-                    
+
             elif fetch_all_tickets == False:
                 created_date = str(datetime.datetime.strptime(self.data['ticket']['created_at'], "%Y-%m-%dT%H:%M:%SZ"))
                 updated_date = str(datetime.datetime.strptime(self.data['ticket']['updated_at'], "%Y-%m-%dT%H:%M:%SZ"))
                 self.data["ticket"]["created_at"] = str(created_date)
                 self.data["ticket"]["updated_at"] = str(updated_date)
-            
-            # print(self.data["ticket"])
+             
             return self.data
         except requests.exceptions.RequestException as e:
             return 0

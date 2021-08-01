@@ -41,9 +41,19 @@ class ApplicationView():
             print("\nFething the ticket", ticketID + ",","please wait ...")
         return 0
     
-    def printTickets(self,tickets_data,pageNO):
+    def printTickets(self,tickets_data,pageNo):
         tickets = tickets_data["tickets"]
-         
+        # calculating total pages to parse 
+        total_pages = math.ceil(float(len(tickets)) / float(self.page_limit))
+
+        if pageNo > total_pages:
+            pageNo = 1
+        elif pageNo < 1:
+            pageNo = total_pages
+        
+        tickets_paging = 0
+        
+
 
 
 

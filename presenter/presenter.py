@@ -26,6 +26,10 @@ class AppPresenter:
             self.getInput()
             if self.input == "menu":
                 self.view.printMenu()
-            elif: self.input == '1':
+            elif self.input == '1':
+                user_input = self.printTickets()
+                if user_input is None:
+                    self.view.displayInputMessage("\nEnter a command, to print menu, type 'menu': ",0)
+                    
 
  

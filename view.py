@@ -18,7 +18,7 @@ class ApplicationView():
         return 1
     
     def displayInputMessage(self,message: str,code: int):
-        print(message)
+        print(message,end="")
         return code
     
     def printMenu(self):
@@ -27,7 +27,7 @@ class ApplicationView():
         print("Press 2 to print a single ticket information")
         print("Press q to quit the application")
         print("Type 'menu' to display view options")
-        print("Enter your choice: ")
+        print("Enter your choice: ",end="")
         return 0
     
     def quit(self):
@@ -64,6 +64,22 @@ class ApplicationView():
                   "updated at", tickets[i]["updated_at"])
                 tickets_paging += 1    
 
+        print("\nDisplayed", tickets_paging, "tickets on page", pageNo, "of", total_pages)
+        print("\nEnter 'd' to go down, 'u' to go up, 'menu' for menu or 'q' for quit: ", end="")
+        return pageNo  # Current page no
+
+    def printTicket(self,tickets_data):
+        if "ticket" in tickets_data:
+            print("<<" + tickets_data["ticket"]["status"] + ">>", "Ticket ID:", tickets_data["ticket"]["id"], "Subject:", "'{0}'".format(tickets_data["ticket"]["subject"]), "Priority:",
+                  "'{0}'".format(tickets_data["ticket"]["priority"]), "Opened by",tickets_data["ticket"]["requester_id"], 
+                  "updated at", tickets_data["ticket"]["updated_at"])
+            print("\n Type menu to display the 'menu' options: ",end="")
+            return 0
+        else:
+            return 1
+            
+
+ 
 
 
 

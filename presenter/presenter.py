@@ -30,6 +30,13 @@ class AppPresenter:
                 user_input = self.printTickets()
                 if user_input is None:
                     self.view.displayInputMessage("\nEnter a command, to print menu, type 'menu': ",0)
-                    
+            elif self.input == '2':
+                user_input = self.printTicket()
+                if user_input is False:
+                    self.view.displayInputMessage("\nEnter a command, to print menu, type 'menu': ",0)
+            elif self.input == 'q':
+                sys.exit(self.view.quit())
+            else:
+                self.view.displayInputMessage("Invalid Input,please enter a valid option. To view the options type 'menu': ",1)
 
  

@@ -13,7 +13,7 @@ class ApplicationView():
     
     def displayErrors(self,error_message: str):
         if self.errorCode is not None:
-            print("\nError fetching data form the API: ",self.errorCode)
+            print("\nError fetching data from the API: ",self.errorCode)
         print(error_message)
         return 1
     

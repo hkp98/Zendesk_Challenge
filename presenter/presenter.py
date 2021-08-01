@@ -38,5 +38,11 @@ class AppPresenter:
                 sys.exit(self.view.quit())
             else:
                 self.view.displayInputMessage("Invalid Input,please enter a valid option. To view the options type 'menu': ",1)
-
+            self.input = "" 
+    
+    def printTickets(self):
+        try:
+            self.view.fetchTickets("all")
+            tickets = self.api.getTickets()
+            assert tickets 
  

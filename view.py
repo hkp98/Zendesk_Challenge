@@ -56,7 +56,11 @@ class ApplicationView():
         
         for i in range(int(tickets_per_page),int(self.page_limit + tickets_per_page)):
             if i < len(tickets):
-                 
+                if tickets[i]["id"] == None:
+                    continue
+                else:
+                    print()
+
 
 
 

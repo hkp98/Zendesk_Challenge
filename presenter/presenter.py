@@ -21,5 +21,11 @@ class AppPresenter:
         self.input = input()
     
     def displayMainMenu(self): # Main menu for user to interact with the application
-        
+        self.view.mainMessage()
+        while True:
+            self.getInput()
+            if self.input == "menu":
+                self.view.printMenu()
+            elif: self.input == '1':
+
  

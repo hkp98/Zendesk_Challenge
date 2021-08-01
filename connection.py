@@ -25,8 +25,6 @@ class ZenApi:
              tickets_data = self.requestZenApi(False, fetch_ticket_id)
              if type(tickets_data) == int and tickets_data == 0:
                  return 0
-             elif type(tickets_data) == dict and tickets_data['count'] == 0:
-                 return -1
              return tickets_data
         return  tickets_data
         
@@ -70,7 +68,11 @@ class ZenApi:
                 updated_date = str(datetime.datetime.strptime(self.data['ticket']['updated_at'], "%Y-%m-%dT%H:%M:%SZ"))
                 self.data["ticket"]["created_at"] = str(created_date)
                 self.data["ticket"]["updated_at"] = str(updated_date)
-             
+
+            print("<<" + self.data["ticket"]["status"] + ">>", "Ticket ID:", self.data["ticket"]["id"],"Subject:",self.data["ticket"]["subject"]
+                          ,"Priority:",self.data["ticket"]["priority"],"opened by",
+                         self.data["ticket"]["requester_id"], "updated at", self.data["ticket"]["updated_at"]) 
+            print(self.data)
             return self.data
         except requests.exceptions.RequestException as e:
             return 0
@@ -78,4 +80,4 @@ class ZenApi:
             return 0
 
 x = ZenApi()
-print((x.getTickets()))
+print((x.getTickets(191)))

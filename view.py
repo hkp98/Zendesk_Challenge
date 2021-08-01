@@ -59,7 +59,9 @@ class ApplicationView():
                 if tickets[i]["id"] == None:
                     continue
                 else:
-                    print("<<" + tickets[i]["status"] + ">>")
+                    print("<<" + tickets[i]["status"] + ">>", "Ticket ID", tickets[i]["id"],"Subject",tickets[i]["Subject"]
+                          ,"Priority",tickets[i]["priority"],"opened by",
+                          tickets[i]["requester_id"], "updated at", tickets[i]["updated_at"])
 
 
 

@@ -52,7 +52,12 @@ class ApplicationView():
             pageNo = total_pages
         
         tickets_paging = 0
+        tickets_per_page = (pageNo-1)*self.page_limit
         
+        for i in range(int(tickets_per_page),int(self.page_limit + tickets_per_page)):
+            if i < len(tickets):
+                 
+
 
 
 

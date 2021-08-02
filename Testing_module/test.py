@@ -73,6 +73,14 @@ class ModelTester(unittest.TestCase):
 
     def test_api_fetch_all_tickets(self: object,test_get):
          api = ZenApi()
+         ticket_raw = api.requestZenApi(True)
+         self.assertEqual(len(ticket_raw["tickets"]),100)
+         assert "tickets" in ticket_raw
+         assert "next_page" in ticket_raw
+         assert "previous_page" in ticket_raw
+         assert "count" in ticket_raw
+         
+
 
 
 

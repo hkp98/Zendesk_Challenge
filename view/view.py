@@ -8,7 +8,7 @@ class ApplicationView():
     def mainMessage(self): # display the intial view of Application
         print("********** Welcome to Zendesk Ticket Viewer Interface **********")
         print(" The Interface lets the User to view tickets on a particular Zendesk Account ")
-        print(" Type menu to view the options or Type q to exit the Application: ")
+        print(" Type menu to view the options or Type q to exit the Application: ",end="")
         return 0
     
     def displayErrors(self,error_message: str):

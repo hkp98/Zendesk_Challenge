@@ -95,3 +95,17 @@ class AppPresenter:
             self.current_id = int(ticketID)
             return 0
         except AssertionError as e:
+            self.view.errorCode = self.api.errorCode
+            if ticket == -1: # no tickets on account
+                self.view.displayErrors("There are 0 tickets on account to display")
+            elif ticket == 401 or ticket == 403:
+                self.view.displayErrors("API authentication failed or invalid user credentials")
+            elif ticket == 404:
+                self.view.displayErrors("Invalid ID requsted, please request a valid ID or domain unavailable")
+            elif ticket == 503:
+                self.view.displayErrors("API unavailable. Please try again later")
+            elif ticket == 0:
+                self.view.displayErrors("Bad Request "+ self.api.errorCode)
+            self.view.errorCode = None
+            self.api.errorCode = None
+            return None

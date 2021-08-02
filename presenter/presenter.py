@@ -61,3 +61,23 @@ class AppPresenter:
             self.view.errorCode = None
             self.api.errorCode = None
             return None
+        
+        while True:
+            self.getInput()
+            if self.input == 'q':
+               sys.exit(self.view.quit())
+            elif self.input == "menu":
+                self.view.printMenu()
+                break
+            elif self.input == "d":
+                page = page + 1
+                page = self.view.printTickets(tickets,page)
+            elif self.input == "u":
+                page = page - 1
+                page = page = self.view.printTickets(tickets,page)
+            else:
+                self.view.displayInputMessage(
+                    "Page command error. 'd' go to next page, 'u' to previous page, 'menu' for menu or 'q' to quit the application",1)
+            self.input = ""
+            self.currrent_page =page
+        return 0

@@ -48,4 +48,6 @@ class AppPresenter:
             page = self.view.printTickets(tickets,1)
         except AssertionError as e:
             self.view.errorCode = self.api.errorCode
-            
+            if tickets == -1: # no tickets on account
+                self.view.displayErrors("There are 0 tickets on account to display")
+            elif 

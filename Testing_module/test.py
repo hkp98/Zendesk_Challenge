@@ -90,13 +90,54 @@ class ModelTester(unittest.TestCase):
          assert "previous_page" in ticket
          assert "count" in ticket
     
-     @patch('model.API_connection.requests.get', side_effect=test_bad_request_error)
+    @patch('model.API_connection.requests.get', side_effect=test_bad_request_error)
 
-     def test_bad_request(self: object,test_get):
+    def test_bad_request(self: object,test_get)-> None:
          api = ZenApi()
          api = api.requestZenApi()
          self.assertEqual(api.requestZenApi(),0)
-         
+         self.assertEqual(api.getTickets(), False)
+         self.assertEqual(api.getTickets(1), False)
+    
+    @patch('model.API_connection.requests.get', side_effect=test_unauthorized_access_error)
+
+    def test_unauthorized_access(self: object,test_get)-> None:
+        api = ZenApi()
+        self.assertEqual(api.requestZenApi(),None)
+        self.assertEqual(api.getTickets(), 401)
+        self.assertEqual(api.getTickets(1), 401)
+    
+    @patch('model.API_connection.requests.get', side_effect=test_api_unavailable_error)
+
+    def test_api_unavailable(self: object,test_get)-> None:
+        api = ZenApi()
+        self.assertEqual(api.requestAPI(), 503)
+        self.assertEqual(api.getTickets(), 503)
+        self.assertEqual(api.getTickets(1),503)
+
+class ViewTester(unittest.TestCase):
+
+    def test_View(self):
+        f1 = test_fetch_single_ticket()
+        f2 = test_fetch_all_tickets()
+        view = ApplicationView()
+        self.assertEqual(view.printTicket(f1.json_data),0)
+        self.assertEqual(view.printTickets(f2.json_data,1),1)
+        self.assertEqual(view.mainMessage(),0)
+        self.assertEqual(view.printMenu(),0)
+        self.assertEqual(view.printTickets("all",0))
+        self.assertEqual(view.quit(),0)
+        
+class PresenterTester(unittest.TestCase):
+
+     @patch("builtins.input", return_value='q') # test user quitting correctly
+     def 
+        
+    
+    
+
+
+
 
     
 

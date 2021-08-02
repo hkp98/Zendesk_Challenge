@@ -34,11 +34,12 @@ class ApplicationView():
         print("\n..Thank you for using the Zendesk Ticket Viewer...")
         return 0
     
-    def fetchTickets(self,ticketID):
+    def fetchTickets(self,ticketID: str):
         if ticketID == "all":
             print("\n Fetching all the tickets, please wait ...")
         else: 
-            print("\nFething the ticket", ticketID + ",","please wait ...")
+            print("reached")
+            print("\nFetching the ticket", ticketID + "," + "please wait ...")
         return 0
     
     def printTickets(self,tickets_data,pageNo):

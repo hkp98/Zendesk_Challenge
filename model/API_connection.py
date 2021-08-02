@@ -81,9 +81,9 @@ class ZenApi:
                 self.data["ticket"]["created_at"] = str(created_date)
                 self.data["ticket"]["updated_at"] = str(updated_date)
 
-            print("<<" + self.data["tickets"]["status"] + ">>", "Ticket ID:", self.data["tickets"]["id"], "Subject:", "'{0}'".format(self.data["tickets"]["subject"]), "Priority:",
-                  "'{0}'".format(self.data["tickets"]["priority"]), "Opened by",self.data["tickets"]["requester_id"], 
-                  "updated at", self.data["tickets"]["updated_at"])
+            # print("<<" + self.data["tickets"]["status"] + ">>", "Ticket ID:", self.data["tickets"]["id"], "Subject:", "'{0}'".format(self.data["tickets"]["subject"]), "Priority:",
+            #       "'{0}'".format(self.data["tickets"]["priority"]), "Opened by",self.data["tickets"]["requester_id"], 
+            #       "updated at", self.data["tickets"]["updated_at"])
             # print(self.data)
             return self.data
         except requests.exceptions.RequestException as e:

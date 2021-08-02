@@ -15,7 +15,7 @@ class AppPresenter:
         self.currrent_page = 999  # random initialization
 
     def run(self): # driver function to run the application
-        self.diplayMainMenu()
+        self.displayMainMenu()
     
     def getInput(self): # Get user Input 
         self.input = input()
@@ -84,11 +84,11 @@ class AppPresenter:
     
     def printTicket(self): # function to print ticket with ID provided
         self.view.displayInputMessage("Enter the ticket ID: ",0)
-        self.getInput()
-        ticketID = self.input()
+        self.getInput()  # Get ticket ID
+        ticketID = self.input
         self.input = ""
         try:
-            self.view.fetchTickets(ticketID)
+            self.view.fetchTickets(str(ticketID))
             ticket = self.api.getTickets(ticketID)
             assert ticket not in [0,-1,401,403,404,503]
             self.view.printTicket(ticket)

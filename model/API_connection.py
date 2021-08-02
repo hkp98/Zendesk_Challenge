@@ -12,25 +12,7 @@ class ZenApi:
         self.password = "H007@123!"
         self.subdomain = "zccharsh"
         self.errorCode = None
-
-    # this function calls the Api function or returns error if any
-    def getTickets(self, fetch_ticket_id: int = None):
-        tickets_data = None
-        if fetch_ticket_id == None:
-            tickets_data = self.requestZenApi(True)
-            # print(type(tickets_data))
-            if type(tickets_data) == int and tickets_data == 0:
-                return 0
-            elif type(tickets_data) == dict and tickets_data['count'] == 0:
-                return -1
-            return tickets_data
-        else:
-            tickets_data = self.requestZenApi(False, fetch_ticket_id)
-            if type(tickets_data) == int and tickets_data == 0:
-                return 0
-            return tickets_data
-        return tickets_data
-
+    
     # this function fetches the data from the Api
     def requestZenApi(self, fetch_all_tickets: bool = True, fetch_ticket_id: int = None):
         if fetch_all_tickets:
@@ -80,17 +62,31 @@ class ZenApi:
                     self.data['ticket']['updated_at'], "%Y-%m-%dT%H:%M:%SZ"))
                 self.data["ticket"]["created_at"] = str(created_date)
                 self.data["ticket"]["updated_at"] = str(updated_date)
-
-            # print("<<" + self.data["tickets"]["status"] + ">>", "Ticket ID:", self.data["tickets"]["id"], "Subject:", "'{0}'".format(self.data["tickets"]["subject"]), "Priority:",
-            #       "'{0}'".format(self.data["tickets"]["priority"]), "Opened by",self.data["tickets"]["requester_id"], 
-            #       "updated at", self.data["tickets"]["updated_at"])
-            # print(self.data)
             return self.data
         except requests.exceptions.RequestException as e:
             return 0
         except ConnectionError:
             return 0
 
+    # this function calls the Api function or returns error if any
+    def getTickets(self, fetch_ticket_id: int = None):
+        tickets_data = None
+        if fetch_ticket_id == None:
+            tickets_data = self.requestZenApi(True)
+            # print(type(tickets_data))
+            if type(tickets_data) == int and tickets_data == 0:
+                return 0
+            elif type(tickets_data) == dict and tickets_data['count'] == 0:
+                return -1
+            return tickets_data
+        else:
+            tickets_data = self.requestZenApi(False, fetch_ticket_id)
+            if type(tickets_data) == int and tickets_data == 0:
+                return 0
+            return tickets_data
+        return tickets_data
 
-x = ZenApi()
-x.getTickets()
+    
+
+# x = ZenApi()
+# x.getTickets()

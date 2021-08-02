@@ -40,7 +40,7 @@ class AppPresenter:
                 self.view.displayInputMessage("Invalid Input,please enter a valid option. To view the options type 'menu': ",1)
             self.input = "" 
     
-    def printTickets(self):
+    def printTickets(self): # function to print all tickets and handle its requests
         try:
             self.view.fetchTickets("all")
             tickets = self.api.getTickets()
@@ -81,3 +81,17 @@ class AppPresenter:
             self.input = ""
             self.currrent_page =page
         return 0
+    
+    def printTicket(self): # function to print ticket with ID provided
+        self.view.displayInputMessage("Enter the ticket ID: ",0)
+        self.getInput()
+        ticketID = self.input()
+        self.input = ""
+        try:
+            self.view.fetchTickets(ticketID)
+            ticket = self.api.getTickets(ticketID)
+            assert ticket not in [0,-1,401,403,404,503]
+            self.view.printTicket(ticket)
+            self.current_id = int(ticketID)
+            return 0
+        except AssertionError as e:

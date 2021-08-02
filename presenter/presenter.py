@@ -108,4 +108,8 @@ class AppPresenter:
                 self.view.displayErrors("Bad Request "+ self.api.errorCode)
             self.view.errorCode = None
             self.api.errorCode = None
-            return None
+            return False 
+
+if __name__ == "__main__":
+    application = AppPresenter()
+    application.run() 

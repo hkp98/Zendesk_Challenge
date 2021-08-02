@@ -5,7 +5,7 @@ import datetime
 
 
 class ZenApi:
-    def __init__(self):
+    def __init__(self: object):
         self.URL = ""
         self.data = {}
         self.loginID = "hkp49@scarletmail.rutgers.edu"
@@ -14,7 +14,7 @@ class ZenApi:
         self.errorCode = None
     
     # this function fetches the data from the Api
-    def requestZenApi(self, fetch_all_tickets: bool = True, fetch_ticket_id: int = None):
+    def requestZenApi(self, fetch_all_tickets: bool = True, fetch_ticket_id: int = None)-> object:
         if fetch_all_tickets:
             self.URL = "https://" + self.subdomain + ".zendesk.com/api/v2/tickets.json"
         else:
@@ -69,7 +69,7 @@ class ZenApi:
             return 0
 
     # this function calls the Api function or returns error if any
-    def getTickets(self, fetch_ticket_id: int = None):
+    def getTickets(self, fetch_ticket_id: int = None)-> object:
         tickets_data = None
         if fetch_ticket_id == None:
             tickets_data = self.requestZenApi(True)

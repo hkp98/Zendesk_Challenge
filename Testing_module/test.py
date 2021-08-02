@@ -6,3 +6,16 @@ Testing 3 modules:
  3. Presenter -> presenter.py
  
 """
+
+import unittest
+from unittest.mock import patch
+import json
+import sys
+from os.path import dirname,abspath
+
+sys.path.insert(0, dirname(dirname(abspath(__file__))))
+
+from view.view import  ApplicationView
+from model.API_connection import ZenApi
+from presenter.presenter import  AppPresenter
+

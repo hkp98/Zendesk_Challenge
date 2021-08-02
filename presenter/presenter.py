@@ -44,5 +44,7 @@ class AppPresenter:
         try:
             self.view.fetchTickets("all")
             tickets = self.api.getTickets()
-            assert tickets 
- 
+            assert tickets not in [0,-1,401,403,404,503]
+            page = self.view.printTickets(tickets,1)
+        except AssertionError as e:
+            

@@ -117,7 +117,7 @@ class ModelTester(unittest.TestCase):
 
 class ViewTester(unittest.TestCase):
 
-    def test_View(self):
+    def test_View(self: object)-> None:
         f1 = test_fetch_single_ticket()
         f2 = test_fetch_all_tickets()
         view = ApplicationView()
@@ -131,11 +131,45 @@ class ViewTester(unittest.TestCase):
 class PresenterTester(unittest.TestCase):
 
      @patch("builtins.input", return_value='q') # test user quitting correctly
-     def 
-        
+     def test_user_quit(self: object,input)-> None:
+         presenter =  AppPresenter()
+         with self.assertRaises(SystemExit) as cm:
+             presenter.displayMainMenu()
+         self.assertEqual(cm.exception.code, 0)
     
-    
+     @patch("builtins.input", side_effect=['1', 'q', '1', 'd', 'q'])
+     @patch('model.API_connection.requests.get', side_effect=test_fetch_all_tickets)
 
+     def test_print_all(self: object,input,test_get)-> None:
+         presenter = AppPresenter()
+         with self.assertRaises(SystemExit) as cm:
+            presenter.displayMainMenu()
+         self.assertEqual(cm.exception.code, 0)
+         with self.assertRaises(SystemExit) as cm:
+            presenter.displayMainMenu()
+         self.assertEqual(cm.exception.code, 0)
+         self.assertEqual(presenter.currrent_page, 2)
+    
+     @patch("builtins.input", side_effect=['2', '3', '4'])
+     @patch('model.API_connection.requests.get', side_effect=test_fetch_single_ticket)
+     
+     def test_print_one(self: object,input,test_get)-> None:
+         presenter = AppPresenter()
+         self.assertEqual(presenter.printTicket(), 0)
+         self.assertEqual(presenter.current_id, 2)
+         self.assertEqual(presenter.printTicket(), 0)
+         self.assertEqual(presenter.current_id, 3)
+         self.assertEqual(presenter.printTicket(), 0)
+         self.assertEqual(presenter.current_id, 4)
+     
+     @patch("builtins.input", side_effect=['1999'])
+     @patch('model.API_connection.requests.get', side_effect=test_invalid_ID_error)
+     def test_invalid_ID(self: object,input,test_get):
+         presenter = AppPresenter()
+         self.assertEqual(presenter.printTicket(), False)
+
+if __name__ == "__main__":
+    unittest.main()
 
 
 

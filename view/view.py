@@ -70,7 +70,7 @@ class ApplicationView():
             return 1
     
     def quit(self: object)-> int:
-        print("\n..Thank you for using the Zendesk Ticket Viewer...")
+        print("\n...Thank you for using the Zendesk Ticket Viewer...")
         return 0
     
     def displayErrors(self: object,error_message: str)-> int:

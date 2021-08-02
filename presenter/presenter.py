@@ -50,4 +50,9 @@ class AppPresenter:
             self.view.errorCode = self.api.errorCode
             if tickets == -1: # no tickets on account
                 self.view.displayErrors("There are 0 tickets on account to display")
-            elif 
+            elif tickets == 401 or tickets == 403:
+                self.view.displayErrors("API authentication failed or invalid user credentials")
+            elif tickets == 404:
+                self.view.displayErrors("Invalid ID requsted, please request a valid ID or domain unavailable")
+            elif tickets == 503:
+                self.view.displayErrors("")

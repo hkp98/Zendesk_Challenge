@@ -1,27 +1,21 @@
 import math 
 
 class ApplicationView():
-    def __init__(self):
+    def __init__(self: object): 
         self.page_limit = 25
         self.errorCode = None
     
-    def mainMessage(self): # display the intial view of Application
+    def mainMessage(self: object)-> int: # display the intial view of Application
         print("********** Welcome to Zendesk Ticket Viewer Interface **********")
         print(" The Interface lets the User to view tickets on a particular Zendesk Account ")
         print(" Type menu to view the options or Type q to exit the Application: ",end="")
         return 0
     
-    def displayErrors(self,error_message: str):
-        if self.errorCode is not None:
-            print("\nError fetching data from the API: ",self.errorCode)
-        print(error_message)
-        return 1
-    
-    def displayInputMessage(self,message: str,code: int):
+    def displayInputMessage(self,message: str,code: int)-> int:
         print(message,end="")
         return code
     
-    def printMenu(self):
+    def printMenu(self: object)-> int:
         print("\nSelect View Options")
         print("Press 1 to print all tickets")
         print("Press 2 to print a single ticket information")
@@ -30,11 +24,7 @@ class ApplicationView():
         print("Enter your choice: ",end="")
         return 0
     
-    def quit(self):
-        print("\n..Thank you for using the Zendesk Ticket Viewer...")
-        return 0
-    
-    def fetchTickets(self,ticketID: str):
+    def fetchTickets(self: object,ticketID: str)-> int:
         if ticketID == "all":
             print("\n Fetching all the tickets, please wait ...")
         else: 
@@ -42,7 +32,7 @@ class ApplicationView():
             print("\nFetching the ticket", ticketID + "," + "please wait ...")
         return 0
     
-    def printTickets(self,tickets_data,pageNo):
+    def printTickets(self: object,tickets_data: dict,pageNo: int)-> int:
         tickets = tickets_data["tickets"]
         # calculating total pages to parse 
         total_pages = math.ceil(float(len(tickets)) / float(self.page_limit))
@@ -69,7 +59,7 @@ class ApplicationView():
         print("\nEnter 'd' to go down, 'u' to go up, 'menu' for menu or 'q' for quit: ", end="")
         return pageNo  # Current page no
 
-    def printTicket(self,tickets_data):
+    def printTicket(self: object,tickets_data: dict)-> int:
         if "ticket" in tickets_data:
             print("<<" + tickets_data["ticket"]["status"] + ">>", "Ticket ID:", tickets_data["ticket"]["id"], "Subject:", "'{0}'".format(tickets_data["ticket"]["subject"]), "Priority:",
                   "'{0}'".format(tickets_data["ticket"]["priority"]), "Opened by",tickets_data["ticket"]["requester_id"], 
@@ -78,6 +68,16 @@ class ApplicationView():
             return 0
         else:
             return 1
+    
+    def quit(self: object)-> int:
+        print("\n..Thank you for using the Zendesk Ticket Viewer...")
+        return 0
+    
+    def displayErrors(self: object,error_message: str)-> int:
+        if self.errorCode is not None:
+            print("\nError fetching data from the API: ",self.errorCode)
+        print(error_message)
+        return 1
             
 
  

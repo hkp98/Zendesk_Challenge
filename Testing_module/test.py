@@ -34,7 +34,7 @@ def test_fetch_single_ticket(url: str = "", auth: str = ""):
     test_object = ApiTest(read_file,200)
     return test_object
 
-def test_fetch_single_ticket(url: str = "", auth: str = ""):
+def test_fetch_all_tickets(url: str = "", auth: str = ""):
     read_file = open('data_sample_tickets.json','r')
     data = json.load(read_file)
     read_file.close()
@@ -58,8 +58,21 @@ class ModelTester(unittest.TestCase):
 
     @patch('model.API_connection.requests.get', side_effect=test_fetch_single_ticket)
 
-    def test_fetch_single_ticket(self,test_get):
+    def test_api_fetch_single_ticket(self: object,test_get):
         api = ZenApi()
-        
+        ticket_raw = api.requestZenApi(False, 2) # Raw ticket withunformatted dates 
+        self.assertEqual(len(ticket_raw),1)
+        assert "ticket" in ticket_raw
+        self.assertEqual(ticket_raw["ticket"]["id"],2)
+        ticket = api.getTickets(2)
+        self.assertEqual(len(ticket),1)
+        assert "ticket" in ticket
+        self.assertEqual(ticket["ticket"]["id"],2)
+    
+    @patch('model.apiRequestHandler.requests.get', side_effect=test_fetch_all_tickets)
+
+    def test_api_fetch_all_tickets(self: object,test_get):
+         api = ZenApi()
+
 
 

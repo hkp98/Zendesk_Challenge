@@ -69,7 +69,7 @@ class ZenApi:
             return 0
 
     # this function calls the Api function or returns error if any
-    def c(self, fetch_ticket_id: int = None)-> object:
+    def getTickets(self, fetch_ticket_id: int = None)-> object:
         tickets_data = None
         if fetch_ticket_id == None:
             tickets_data = self.requestZenApi(True)

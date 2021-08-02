@@ -42,6 +42,10 @@ def test_fetch_all_tickets(url: str = "", auth: str = ""):
     return test_object
 
 def test_bad_request_error(url: str = "", auth: str = ""):
+    test_object = ApiTest(status_response=400)
+    return test_object
+
+def test_unauthorized_access_error(url: str = "", auth: str = ""):
     test_object = ApiTest(status_response=401)
     return test_object
 
@@ -58,7 +62,7 @@ class ModelTester(unittest.TestCase):
 
     @patch('model.API_connection.requests.get', side_effect=test_fetch_single_ticket)
 
-    def test_api_fetch_single_ticket(self: object,test_get):
+    def test_api_fetch_single_ticket(self: object,test_get)-> None:
         api = ZenApi()
         ticket_raw = api.requestZenApi(False, 2) # Raw ticket withunformatted dates 
         self.assertEqual(len(ticket_raw),1)
@@ -69,9 +73,9 @@ class ModelTester(unittest.TestCase):
         assert "ticket" in ticket
         self.assertEqual(ticket["ticket"]["id"],2)
     
-    @patch('model.apiRequestHandler.requests.get', side_effect=test_fetch_all_tickets)
+    @patch('model.API_connection.requests.get', side_effect=test_fetch_all_tickets)
 
-    def test_api_fetch_all_tickets(self: object,test_get):
+    def test_api_fetch_all_tickets(self: object,test_get)-> None:
          api = ZenApi()
          ticket_raw = api.requestZenApi(True)
          self.assertEqual(len(ticket_raw["tickets"]),100)
@@ -79,7 +83,23 @@ class ModelTester(unittest.TestCase):
          assert "next_page" in ticket_raw
          assert "previous_page" in ticket_raw
          assert "count" in ticket_raw
+         ticket = api.getTickets() # processing with formatted dates
+         self.assertEqual(len(ticket["tickets"]),100)
+         assert "tickets" in ticket
+         assert "next_page" in ticket
+         assert "previous_page" in ticket
+         assert "count" in ticket
+    
+     @patch('model.API_connection.requests.get', side_effect=test_bad_request_error)
+
+     def test_bad_request(self: object,test_get):
+         api = ZenApi()
+         api = api.requestZenApi()
+         self.assertEqual(api.requestZenApi(),0)
          
+
+    
+
 
 
 

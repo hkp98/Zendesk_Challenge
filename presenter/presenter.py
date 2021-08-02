@@ -55,4 +55,9 @@ class AppPresenter:
             elif tickets == 404:
                 self.view.displayErrors("Invalid ID requsted, please request a valid ID or domain unavailable")
             elif tickets == 503:
-                self.view.displayErrors("")
+                self.view.displayErrors("API unavailable. Please try again later")
+            elif tickets == 0:
+                self.view.displayErrors("Bad Request "+ self.api.errorCode)
+            self.view.errorCode = None
+            self.api.errorCode = None
+            return None

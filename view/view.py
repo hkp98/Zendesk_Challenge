@@ -49,9 +49,10 @@ class ApplicationView():
                 if tickets[i]["id"] == None:
                     continue
                 else:
-                    print("<<" + tickets[i]["status"] + ">>", "Ticket ID:", tickets[i]["id"], "Subject:", "'{0}'".format(tickets[i]["subject"]), "Priority:",
-                  "'{0}'".format(tickets[i]["priority"]), "Opened by",tickets[i]["requester_id"], 
-                  "updated at", tickets[i]["updated_at"])
+                    print("<<" + tickets[i]["status"] + ">>", "Ticket ID:", tickets[i]["id"],"Priority:","'{0}'".format(tickets[i]["priority"]), 
+                    "Opened by",tickets[i]["requester_id"], "Updated at", tickets[i]["updated_at"],
+                    "Subject:", "'{0}'".format(tickets[i]["subject"])
+                    )
                 tickets_paging += 1    
 
         print("\nDisplayed", tickets_paging, "tickets on page", pageNo, "of", total_pages)
@@ -60,9 +61,8 @@ class ApplicationView():
 
     def printTicket(self: object,tickets_data: dict)-> int:
         if "ticket" in tickets_data:
-            print("<<" + tickets_data["ticket"]["status"] + ">>", "Ticket ID:", tickets_data["ticket"]["id"], "Subject:", "'{0}'".format(tickets_data["ticket"]["subject"]), "Priority:",
-                  "'{0}'".format(tickets_data["ticket"]["priority"]), "Opened by",tickets_data["ticket"]["requester_id"], 
-                  "updated at", tickets_data["ticket"]["updated_at"])
+            print("<<" + tickets_data["ticket"]["status"] + ">>", "Ticket ID:", tickets_data["ticket"]["id"],"Priority:","'{0}'".format(tickets_data["ticket"]["priority"]), "Opened by",tickets_data["ticket"]["requester_id"], 
+                  "Updated at", tickets_data["ticket"]["updated_at"],"Subject:", "'{0}'".format(tickets_data["ticket"]["subject"]))
             print("\n Type menu to display the 'menu' options: ",end="")
             return 0
         else:

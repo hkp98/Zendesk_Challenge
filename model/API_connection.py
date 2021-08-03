@@ -3,14 +3,15 @@
 import requests
 import datetime
 import json
+from model.user_info import user
 
 class ZenApi:
     def __init__(self: object):
         self.URL = ""
         self.data = {}
-        self.loginID = "hkp49@scarletmail.rutgers.edu"
-        self.password = "H007@123!"
-        self.subdomain = "zccharsh"
+        self.loginID = user().loginID
+        self.password = user().password
+        self.subdomain = user().subdomain
         self.errorCode = None
     
     # this function fetches the data from the Api

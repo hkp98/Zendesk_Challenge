@@ -75,4 +75,3 @@ Output Screen for test.py Shows
 4. https://ducmanhphan.github.io/2019-08-05-MVP-architectural-pattern/ (The MVP Architecture)
 5. https://docs.python.org/3/library/unittest.html (Testing)
 6. https://www.geeksforgeeks.org/unit-testing-python-unittest/
-7. 

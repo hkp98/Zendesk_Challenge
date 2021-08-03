@@ -28,7 +28,7 @@ Mac OS:
 For installing Python 3.9.6 on Mac, head to https://www.python.org/downloads/ and under "Python 3.9.6" click on "Download Mac OS X 64-bit/32-bit installer" and download the one suitable for your machine. Run the installer and follow the steps to get a full standard installation of Python 3.9.6 on your system.
 
 Using the Application: (in windows 10)
-1. Clone the git-hub repository named Zendesk_Coding_Challenge in a new folder
+1. Clone the git-hub repository named Zendesk_Challenge in a new folder
 2. Open the folder in any IDE
 3. Now, create an venv using command ( virtualenv env ) 
 4. Here, activate the venve using command ( .\env\Scripts\activate.ps1 ) 

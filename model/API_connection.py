@@ -2,7 +2,7 @@
 
 import requests
 import datetime
-
+import json
 
 class ZenApi:
     def __init__(self: object):
@@ -56,6 +56,7 @@ class ZenApi:
                     self.data["tickets"][i]["updated_at"] = str(update_date)
 
             elif fetch_all_tickets == False:
+                # print(self.data)
                 created_date = str(datetime.datetime.strptime(
                     self.data['ticket']['created_at'], "%Y-%m-%dT%H:%M:%SZ"))
                 updated_date = str(datetime.datetime.strptime(

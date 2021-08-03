@@ -77,7 +77,7 @@ class AppPresenter:
                 page = page = self.view.printTickets(tickets,page)
             else:
                 self.view.displayInputMessage(
-                    "Page command error. 'd' go to next page, 'u' to previous page, 'menu' for menu or 'q' to quit the application",1)
+                    "Page command error. 'd' go to next page, 'u' to previous page, 'menu' for menu or 'q' to quit the application: ",1)
             self.input = ""
             self.currrent_page =page
         return 0

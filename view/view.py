@@ -8,7 +8,7 @@ class ApplicationView():
     def mainMessage(self: object)-> int: # display the intial view of Application
         print("********** Welcome to Zendesk Ticket Viewer Interface **********")
         print(" The Interface lets the User to view tickets on a particular Zendesk Account ")
-        print(" Type menu to view the options or Type q to exit the Application: ",end="")
+        print(" Type menu to view the options or Type q to exit the Application: ",end=" ")
         return 0
     
     def displayInputMessage(self,message: str,code: int)-> int:
@@ -28,7 +28,6 @@ class ApplicationView():
         if ticketID == "all":
             print("\n Fetching all the tickets, please wait ...")
         else: 
-            print("reached")
             print("\nFetching the ticket", ticketID + "," + "please wait ...")
         return 0
     

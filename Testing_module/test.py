@@ -20,41 +20,41 @@ from model.API_connection import ZenApi
 from presenter.presenter import  AppPresenter
 
 class ApiTest:
-    def __init__(self: object,json_data: dict = "",status_response: str =""):
+    def __init__(self: object,json_data: dict = "",status_code: str =""):
         self.json_data = json_data
-        self.status_response = status_response
+        self.status_code = status_code
     
     def json(self):
         return self.json_data
     
 def test_fetch_single_ticket(url: str = "", auth: str = ""):
-    read_file = open('data_sample_ticket.json','r')
+    read_file = open('Testing_module/data_sample_ticket.json','r')
     data = json.load(read_file)
     read_file.close()
-    test_object = ApiTest(read_file,200)
+    test_object = ApiTest(data,200)
     return test_object
 
 def test_fetch_all_tickets(url: str = "", auth: str = ""):
-    read_file = open('data_sample_tickets.json','r')
+    read_file = open('Testing_module/data_sample_tickets.json','r')
     data = json.load(read_file)
     read_file.close()
-    test_object = ApiTest(read_file,200)
+    test_object = ApiTest(data,200)
     return test_object
 
 def test_bad_request_error(url: str = "", auth: str = ""):
-    test_object = ApiTest(status_response=400)
+    test_object = ApiTest(status_code=400)
     return test_object
 
 def test_unauthorized_access_error(url: str = "", auth: str = ""):
-    test_object = ApiTest(status_response=401)
+    test_object = ApiTest(status_code=401)
     return test_object
 
 def test_api_unavailable_error(url: str = "", auth: str = ""):
-    test_object = ApiTest(status_response=503)
+    test_object = ApiTest(status_code=503)
     return test_object
 
 def test_invalid_ID_error(url: str = "", auth: str = ""):
-    test_object = ApiTest({'error': 'RecordNotFound', 'description': 'Not found'},status_response=404)
+    test_object = ApiTest({'error': 'RecordNotFound', 'description': 'Not found'},status_code=404)
     return test_object
 
 # Testing for module API_connection.py
@@ -64,7 +64,7 @@ class ModelTester(unittest.TestCase):
 
     def test_api_fetch_single_ticket(self: object,test_get)-> None:
         api = ZenApi()
-        ticket_raw = api.requestZenApi(False, 2) # Raw ticket withunformatted dates 
+        ticket_raw = api.requestZenApi(False, 2) # Raw ticket with unformatted dates 
         self.assertEqual(len(ticket_raw),1)
         assert "ticket" in ticket_raw
         self.assertEqual(ticket_raw["ticket"]["id"],2)
@@ -94,16 +94,15 @@ class ModelTester(unittest.TestCase):
 
     def test_bad_request(self: object,test_get)-> None:
          api = ZenApi()
-         api = api.requestZenApi()
-         self.assertEqual(api.requestZenApi(),0)
-         self.assertEqual(api.getTickets(), False)
-         self.assertEqual(api.getTickets(1), False)
+         self.assertEqual(api.requestZenApi(),False)
+         self.assertEqual(api.getTickets(), 0)
+         self.assertEqual(api.getTickets(1), 0)
     
     @patch('model.API_connection.requests.get', side_effect=test_unauthorized_access_error)
 
     def test_unauthorized_access(self: object,test_get)-> None:
         api = ZenApi()
-        self.assertEqual(api.requestZenApi(),None)
+        self.assertEqual(api.requestZenApi(),401)
         self.assertEqual(api.getTickets(), 401)
         self.assertEqual(api.getTickets(1), 401)
     
@@ -111,7 +110,7 @@ class ModelTester(unittest.TestCase):
 
     def test_api_unavailable(self: object,test_get)-> None:
         api = ZenApi()
-        self.assertEqual(api.requestAPI(), 503)
+        self.assertEqual(api.requestZenApi(), 503)
         self.assertEqual(api.getTickets(), 503)
         self.assertEqual(api.getTickets(1),503)
 
@@ -125,7 +124,7 @@ class ViewTester(unittest.TestCase):
         self.assertEqual(view.printTickets(f2.json_data,1),1)
         self.assertEqual(view.mainMessage(),0)
         self.assertEqual(view.printMenu(),0)
-        self.assertEqual(view.printTickets("all",0))
+        self.assertEqual(view.fetchTickets("all"),0)
         self.assertEqual(view.quit(),0)
         
 class PresenterTester(unittest.TestCase):

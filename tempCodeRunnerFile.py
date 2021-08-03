@@ -1,1 +1,0 @@
-rt(0, dirname(dirname(abspath(__file__)))))
